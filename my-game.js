@@ -23,13 +23,30 @@ var tilesEl = document.querySelector('#tiles')
 function handleTileClick() {
     console.log('tile clicked...')
 }
+function createShuffledNumbers() {
+    // create an array with a blank value
+    var nums = []
+    // generate an array of random numbers half the total size of tiles
+    for (var i=0; i < numTiles / 2; i++) {
+        var randNum = Math.ceil(Math.random() * 666)
+        // fill the array with duplicate randNums
+        nums.push (randNum, randNum)
+    }
+
+    // shuffle the array nums
+    nums = nums.sort( function() {
+        return Math.random() - 0.5
+    })
+    
+    return nums
+}
 
 function createTiles() {
-    console.log('creating tiles...')
-    for (var i=0; i < numTiles; i++) {
+    var shuffledNums = createShuffledNumbers()
+    for (var i=0; i < shuffledNums.length; i++) {
         var li = document.createElement('li')
         li.innerText = brainEmoji
-        li.setAttribute('data-number', 2)
+        li.setAttribute('data-number', shuffledNums[i])
         li.classList.add('tile')
         li.addEventListener('click', handleTileClick)
         console.log(li)
